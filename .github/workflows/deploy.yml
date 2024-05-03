@@ -25,6 +25,9 @@ jobs:
         run: yarn run generate
 
       - name: Deploy to GitHub Pages
-        run: npx gh-pages -d dist # Adjust the directory according to your Nuxt 3 configuration
+        run: |
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/USER_OR_ORG/REPO.git
+          npx gh-pages -d dist -u "github-actions-bot <support+actions@github.com>" # Adjust the directory according to your Nuxt 3 configuration
         env:
           NODE_AUTH_TOKEN: ${{ secrets.DEPLOY_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
